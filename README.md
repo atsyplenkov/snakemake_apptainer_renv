@@ -92,7 +92,7 @@ This will build the container image from the `container.def` file and run the sc
 
 
 # Prepare session
-1. Install `miniforge3` and `apptainer` using default params. The install `snakemake`:
+1. Install `miniforge3` and `apptainer` using default params. Then install `snakemake`:
 ```shell
 conda create -c conda-forge -c bioconda -n snakemake snakemake=9.10.0
 ```
