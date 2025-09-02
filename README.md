@@ -1,6 +1,12 @@
 # Snakemake R Workflow with Singularity (Apptainer) and `renv`
 
-[![CI](https://github.com/atsyplenkov/snakemake_apptainer_renv/workflows/Run%20Snakemake%20Workflow/badge.svg)](https://github.com/atsyplenkov/snakemake_apptainer_renv/actions)
+<p align="center">
+     <a href="https://github.com/atsyplenkov/snakemake_apptainer_renv/.github/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/atsyplenkov/snakemake_apptainer_renv/ci.yml?style=flat&labelColor=1C2C2E&color=039475&logo=GitHub%20Actions&logoColor=white&label=CI"></a>
+     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat&labelColor=1C2C2E&color=039475&logo=MIT&logoColor=white&label=Licence"></a>
+     <a href="https://github.com/atsyplenkov/snakemake_apptainer_renv/generate">
+         <img src="https://img.shields.io/badge/-Use%20this%20template-039475?style=flat&logo=github&logoColor=white&labelColor=1C2C2E" alt="Use this template">
+     </a>
+</p>
 
 ## How it works
 This project uses Snakemake to automate an R workflow inside a reproducible Singularity (Apptainer) container. The workflow builds a container image from a definition file `container.def`, installing R packages listed in the `renv.lock` and system dependencies. Then `snakemake` runs your R scripts within the created container (`container.sif`) in the order defined in the `Snakefile`. It will run only the scripts that need to be re-run to make sure that all targets are met. Such approach makes sure that the computational environment is reproducible and reusable. As an extra bonus, it comes with the continuous integration (CI) that runs the workflow on every push to the `master` branch.
