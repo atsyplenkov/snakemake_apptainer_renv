@@ -1,0 +1,6 @@
+*.sif
+/logs
+/.snakemake
+/.cache
+out/cyl.csv
+out/paths.txt
