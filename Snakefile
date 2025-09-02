@@ -24,8 +24,8 @@ rule apptainer_build:
 
 rule run_test_script:
     input:  
-        script ="scripts/test_script.R",
-        container = "container.sif"  
+        container = "container.sif",
+        file = "in/mtcars.csv"
     output:
         "out/cyl.csv",
         "out/paths.txt"
@@ -33,7 +33,5 @@ rule run_test_script:
         "logs/test_script.log"
     singularity:
         "container.sif"
-    shell:
-        """
-        {runR} {input.script} 
-        """
+    script:
+        "scripts/test_script.R"
