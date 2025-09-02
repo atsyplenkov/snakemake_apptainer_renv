@@ -11,6 +11,45 @@
 ## How it works
 This project uses Snakemake to automate an R workflow inside a reproducible Singularity (Apptainer) container. The workflow builds a container image from a definition file `container.def`, installing R packages listed in the `renv.lock` and system dependencies. Then `snakemake` runs your R scripts within the created container (`container.sif`) in the order defined in the `Snakefile`. It will run only the scripts that need to be re-run to make sure that all targets are met. Such approach makes sure that the computational environment is reproducible and reusable. As an extra bonus, it comes with the continuous integration (CI) that runs the workflow on every push to the `master` branch.
 
+```mermaid
+graph TB
+    subgraph "renv"
+        A[renv.lock<br/>Package versions]
+        B[R package management]
+        C[Local R environment]
+    end
+    
+    subgraph "Scripts"
+        J[scripts/<br/>directory]
+    end
+    
+    subgraph "Apptainer"
+        D[container.def<br/>System dependencies]
+        E[container.sif<br/>Built image]
+        F[Containerised R environment]
+    end
+    
+    subgraph "Snakemake"
+        G[Snakefile<br/>Workflow rules]
+        H[Workflow orchestration]
+    end
+    
+    J --> B
+    A --> D
+    D --> E
+    E --> H
+    G --> H
+    J --> G
+    B --> A
+    F --> E
+    
+    style A fill:#e1f5fe
+    style J fill:#f3e5f5
+    style D fill:#fff3e0
+    style E fill:#fff3e0
+    style G fill:#e8f5e8
+    style H fill:#e8f5e8
+```
 
 ```text
 .
