@@ -1,4 +1,4 @@
-# Snakemake R Workflow with Singularity (Apptainer) and renv
+# Snakemake R Workflow with Apptainer and renv
 
 <p align="center">
      <a href="https://github.com/atsyplenkov/snakemake_apptainer_renv/.github/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/atsyplenkov/snakemake_apptainer_renv/ci.yml?style=flat&labelColor=1C2C2E&color=039475&logo=GitHub%20Actions&logoColor=white&label=CI"></a>
