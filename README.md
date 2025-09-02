@@ -11,6 +11,28 @@
 ## How it works
 This project uses Snakemake to automate an R workflow inside a reproducible Singularity (Apptainer) container. The workflow builds a container image from a definition file `container.def`, installing R packages listed in the `renv.lock` and system dependencies. Then `snakemake` runs your R scripts within the created container (`container.sif`) in the order defined in the `Snakefile`. It will run only the scripts that need to be re-run to make sure that all targets are met. Such approach makes sure that the computational environment is reproducible and reusable. As an extra bonus, it comes with the continuous integration (CI) that runs the workflow on every push to the `master` branch.
 
+
+```text
+.
+├── container.def   # Singularity definition file
+├── container.sif   # Singularity image file
+├── in              # Input directory
+│   └── mtcars.csv
+├── out             # Output directory
+│   ├── cyl.csv
+│   └── paths.txt
+├── renv            # renv directory
+│   ├── activate.R
+│   ├── library
+│   ├── settings.json
+│   └── staging
+├── renv.lock       # renv lock file
+├── scripts         # Scripts directory
+│   └── test_script.R
+└── Snakefile       # Snakemake workflow file
+
+```
+
 ## Plain language summary
 Imagine you are doing your R&D work and until the end of the project, you do not know for sure what kind of R packages will be needed. The SOTA approach in such cases is to use `renv` to manage your R packages. This library helps to track the R packages you use and records them in the `renv.lock` file. That is, code is written, money is made. And now you are at the end of the project and happy to archive it and move forward. But after two years your boss says, "We need to reproduce the results." What do you do?
 
@@ -41,7 +63,7 @@ conda create -c conda-forge -c bioconda -n snakemake snakemake=9.10.0
 conda activate snakemake
 ```
 
-3. Run the workflow with the followiung command:
+3. Run the workflow with the following command:
 ```shell
 snakemake --use-singularity --cores 1
 ```
