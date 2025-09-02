@@ -1,0 +1,36 @@
+name: Run Snakemake Workflow
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Miniforge
+        uses: mamba-org/setup-miniforge@v2
+        with:
+          use-mamba: true
+          
+      - name: Set up Apptainer
+        uses: apptainer/setup-apptainer@v2
+        
+      - name: Install Snakemake
+        run: |
+          mamba install -c conda-forge -c bioconda snakemake=9.10.0 -y
+          
+      - name: Create necessary directories
+        run: |
+          mkdir -p logs out
+          
+      - name: Run Snakemake workflow
+        run: |
+          snakemake --use-singularity --cores 1 --printshellcmds
