@@ -15,22 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         
-      - name: Set up Miniforge
-        uses: mamba-org/setup-miniforge@v2
-        with:
-          use-mamba: true
-          
       - name: Set up Apptainer
-        uses: apptainer/setup-apptainer@v2
+        uses: eWaterCycle/setup-apptainer@v2
         
-      - name: Install Snakemake
-        run: |
-          mamba install -c conda-forge -c bioconda snakemake=9.10.0 -y
-          
-      - name: Create necessary directories
-        run: |
-          mkdir -p logs out
-          
       - name: Run Snakemake workflow
-        run: |
-          snakemake --use-singularity --cores 1 --printshellcmds
+        uses: snakemake/snakemake-github-action@v2
+        with:
+          snakefile: 'Snakefile'
+          args: '--use-singularity --cores 1'
