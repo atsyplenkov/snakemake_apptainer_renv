@@ -14,7 +14,7 @@ This project shows how to use Snakemake to automate an R workflow inside a repro
 ```mermaid
 graph TB
     subgraph "renv"
-        A[renv.lock<br/>Package versions]
+        A[renv.lock<br/>Package versions & sources]
         B[R package management]
         C[Local R environment]
     end
@@ -22,26 +22,32 @@ graph TB
     subgraph "Scripts"
         J[scripts/<br/>directory]
     end
+
+    F[Containerised R environment]
     
     subgraph "Apptainer"
-        D[container.def<br/>System dependencies]
-        E[container.sif<br/>Built image]
-        F[Containerised R environment]
+        D[container.def]
+        DA[System dependencies]
+        E[container.sif<br/>Compute environment]
     end
-    
+
     subgraph "Snakemake"
         G[Snakefile<br/>Workflow rules]
         H[Workflow orchestration]
     end
     
     J --> B
+    J --> C
     A --> D
     D --> E
-    E --> H
+    DA --> D
+    F --> H
     G --> H
     J --> G
     B --> A
-    F --> E
+    E --> F
+    E --> H
+    C --> A
     
     style A fill:#e1f5fe
     style J fill:#f3e5f5
