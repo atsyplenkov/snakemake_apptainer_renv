@@ -1,7 +1,10 @@
+# Variable declarations -------------------------------------------------------
+CONTAINER = "container.sif"
+
 # Inputs -----------------------------------------------------------
 rule all:
     input:
-        "container.sif",
+        CONTAINER,
         "out/cyl.csv",
         "out/paths.txt",
         "out/plot.png"
@@ -12,7 +15,7 @@ rule apptainer_build:
         def_file = "container.def",
         lock_file = "renv.lock"
     output:
-        "container.sif"
+        CONTAINER
     shell:
         """
         apptainer build {output} {input.def_file}
@@ -20,10 +23,10 @@ rule apptainer_build:
 
 rule run_test_script:
     input:  
-        # container = "container.sif",
-        file = "in/mtcars.csv"
+        file = "in/mtcars.csv",
+        container = CONTAINER
     singularity:
-        "container.sif"
+        CONTAINER
     output:
         "out/cyl.csv",
         "out/paths.txt"
@@ -31,8 +34,10 @@ rule run_test_script:
         "scripts/test_script.R"
 
 rule run_test_script2:
+    input:  
+        CONTAINER
     singularity:
-        "container.sif"
+        CONTAINER
     output:
         "out/plot.png"
     script:
