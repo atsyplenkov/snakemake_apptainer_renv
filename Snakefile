@@ -9,7 +9,7 @@ rule all:
         "out/paths.txt",
         "out/plot.png"
 
-# Rules -----------------------------------------------------------------------
+# Build compute environment -----------------------------------------------------------
 rule apptainer_build:
     input:  
         def_file = "container.def",
@@ -21,6 +21,7 @@ rule apptainer_build:
         apptainer build {output} {input.def_file}
         """
 
+# Run scripts -----------------------------------------------------------
 rule run_test_script:
     input:  
         file = "in/mtcars.csv",
