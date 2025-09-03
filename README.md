@@ -87,7 +87,7 @@ However, another thing we need to keep in mind in R&D jobs is the order of the s
 This repository serves as a template for such projects. The idea is that you start working within `renv`, and create scripts in the `scripts/` directory. Any unusual system dependencies should be specified in the `container.def` file. The order of the steps should be manually recorded in the `Snakefile`. Then, as soon as you finish writing the code, you can run the workflow with the following command:
 
 ```shell
-# N is the number of cores you want to use
+# N is the number of parallel jobs you want to run simultaneously
 snakemake --use-singularity --cores N
 ```
 
@@ -113,7 +113,8 @@ conda activate snakemake
 
 4. Run the workflow with the following command:
 ```shell
-snakemake --use-singularity --cores 1
+# N is the number of parallel jobs you want to run simultaneously
+snakemake --use-singularity --cores N
 ```
 
 # See also

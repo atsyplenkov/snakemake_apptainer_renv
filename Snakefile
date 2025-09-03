@@ -1,12 +1,10 @@
-# Variable declarations -------------------------------------------------------
-runR = "Rscript --no-save --no-restore"
-
 # Inputs -----------------------------------------------------------
 rule all:
     input:
         "container.sif",
         "out/cyl.csv",
-        "out/paths.txt"
+        "out/paths.txt",
+        "out/plot.png"
 
 # Rules -----------------------------------------------------------------------
 rule apptainer_build:
@@ -15,8 +13,6 @@ rule apptainer_build:
         lock_file = "renv.lock"
     output:
         "container.sif"
-    log:
-        "logs/container_build.log"
     shell:
         """
         apptainer build {output} {input.def_file}
@@ -24,14 +20,20 @@ rule apptainer_build:
 
 rule run_test_script:
     input:  
-        container = "container.sif",
+        # container = "container.sif",
         file = "in/mtcars.csv"
+    singularity:
+        "container.sif"
     output:
         "out/cyl.csv",
         "out/paths.txt"
-    log:
-        "logs/test_script.log"
-    singularity:
-        "container.sif"
     script:
         "scripts/test_script.R"
+
+rule run_test_script2:
+    singularity:
+        "container.sif"
+    output:
+        "out/plot.png"
+    script:
+        "scripts/test_script2.R"
