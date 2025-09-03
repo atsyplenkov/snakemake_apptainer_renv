@@ -113,9 +113,13 @@ conda activate snakemake
 
 4. Run the workflow with the following command:
 ```shell
-# N is the number of parallel jobs you want to run simultaneously
-snakemake --use-singularity --cores N
+snakemake --use-singularity --cores 1
 ```
+If you want to run workflow in parallel, you can use the following command:
+```shell
+snakemake --use-singularity --cores 2
+```
+It will make `snakemake` to run jobs `run_test_script` and `run_test_script2` simultaneously.
 
 # See also
 - [A bit more complex implementation](https://github.com/bast/contain-R) of similar approach connecting `renv` and `snakemake` with Singularity by [**@bast**](https://github.com/bast)
