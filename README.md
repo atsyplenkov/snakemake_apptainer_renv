@@ -8,7 +8,7 @@
      </a>
 </p>
 
-## How it works
+### 🟪 summary
 This project shows how to use Snakemake to automate an R workflow inside a reproducible Singularity/Apptainer container. It builds a container image from a definition file `container.def`, installing R packages listed in the `renv.lock` and all system dependencies. Then `snakemake` runs your scripts inside the created container (`container.sif`) in order defined in the `Snakefile`. Such approach makes sure that the computational environment is reproducible and reusable. As an extra bonus, it comes with the continuous integration that runs the workflow on every push to the `master` branch.
 
 ```mermaid
@@ -57,7 +57,7 @@ graph TB
     style H fill:#e8f5e8
 ```
 
-## Directory structure
+### 🟩 project structure
 The `Snakefile` is the backbone of the workflow. It defines the order of the steps and the dependencies between them. In the current implementation it uses the built-in [R integration of Snakemake](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#r-and-r-markdown). That is, user can specify variables in the `Snakefile` and use them in the R scripts via `snakemake@input` and `snakemake@output` objects (see `scripts/test_script.R` for an example).
 
 ```text
@@ -81,7 +81,7 @@ The `Snakefile` is the backbone of the workflow. It defines the order of the ste
 
 ```
 
-## Plain language summary & reasoning
+### 🟥 plain language summary & reasoning
 Imagine you are doing your R&D work and until the end of the project, you do not know for sure what kind of R packages will be needed. The SOTA approach in such cases is to use `renv` to manage your R packages. This library helps to track the R packages you use and records them in the `renv.lock` file. That is, code is written, money is made. And now you are at the end of the project and happy to archive it and move forward. But after two years your boss says, "We need to reproduce the results." What do you do?
 
 Luckily, `renv` recorded all the R packages and the R version. However, it did not record the system dependencies. What usually happens to me is that I need a specific GDAL version with specific drivers installed (hello, KEA lib), but I do not always record them. Therefore, even if I restore `renv` on a new machine, I'll probably fail to reproduce the results. 
@@ -100,7 +100,7 @@ snakemake --use-singularity --cores N
 This will build the container image from the `container.def` file and run the scripts within the container in the order defined in the `Snakefile`. If it finishes successfully, you can be assured that the results are reproducible and you can rerun them on a new machine in future.
 
 
-## How to use the template
+### 🔷 how to use the template
 1. Clone the repository or create new from [a template](https://github.com/atsyplenkov/snakemake_apptainer_renv/generate):
 ```shell
 git clone https://github.com/atsyplenkov/snakemake_apptainer_renv.git
@@ -127,7 +127,7 @@ snakemake --use-singularity --cores 2
 ```
 It will make `snakemake` to run jobs `run_test_script` and `run_test_script2` simultaneously.
 
-# See also
+### 🟧 see also
 - [A bit more complex implementation](https://github.com/bast/contain-R) of similar approach connecting `renv` and `snakemake` with Singularity by [**@bast**](https://github.com/bast)
 - [Testing Snakemake template](https://ginolhac.github.io/posts/2023-09-07_snakemake-test-ci/index.html)
 - [Pat Schloss's project](https://github.com/riffomonas/drought_index/tree/main) on running R workflows with `snakemake` (within `conda`)
